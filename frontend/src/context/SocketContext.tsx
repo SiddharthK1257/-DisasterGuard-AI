@@ -24,7 +24,15 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       return;
     }
 
-    const socketUrl = 'http://localhost:5000';
+    const getSocketUrl = () => {
+      if (import.meta.env.VITE_SOCKET_URL) {
+        return import.meta.env.VITE_SOCKET_URL;
+      }
+      const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+      return isLocal ? 'http://localhost:5000' : window.location.origin;
+    };
+
+    const socketUrl = getSocketUrl();
     const newSocket = io(socketUrl, {
       transports: ['websocket', 'polling']
     });

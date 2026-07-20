@@ -3,6 +3,7 @@ import http from 'http';
 import { Server } from 'socket.io';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 
 // Configs and services
 dotenv.config();
@@ -58,6 +59,22 @@ app.use('/api/resources', resourcesRouter);
 app.use('/api/volunteer', volunteerRouter);
 app.use('/api/chat', chatRouter);
 app.use('/api/pdf', pdfRouter);
+
+// Serve frontend static files
+const publicPath = path.join(__dirname, '../public');
+app.use(express.static(publicPath));
+
+// Fallback to frontend index.html for SPA routes
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api') || req.path.startsWith('/socket.io')) {
+    return next();
+  }
+  res.sendFile(path.join(publicPath, 'index.html'), (err) => {
+    if (err) {
+      next();
+    }
+  });
+});
 
 // WebSocket Connections
 io.on('connection', (socket) => {
