@@ -1,0 +1,45 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:latest
+    container_name: disasterguard-db
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - disasterguard-net
+
+  backend:
+    build: ./backend
+    container_name: disasterguard-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/disasterguard
+      - PORT=5000
+      - JWT_SECRET=supersecretdisasterguardkey123!
+      - GEMINI_API_KEY=YOUR_GEMINI_API_KEY_HERE
+      - NODE_ENV=production
+    depends_on:
+      - mongo
+    networks:
+      - disasterguard-net
+
+  frontend:
+    build: ./frontend
+    container_name: disasterguard-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - disasterguard-net
+
+volumes:
+  mongo-data:
+
+networks:
+  disasterguard-net:
+    driver: bridge
