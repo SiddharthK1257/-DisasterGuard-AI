@@ -5,7 +5,7 @@ const getApiBaseUrl = () => {
     return import.meta.env.VITE_API_URL;
   }
   const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-  return isLocal ? 'http://localhost:5000/api' : `${window.location.origin}/api`;
+  return isLocal ? 'http://localhost:5000/api' : 'https://disasterguard-ai-5qz5.onrender.com/api';
 };
 
 const API_BASE_URL = getApiBaseUrl();

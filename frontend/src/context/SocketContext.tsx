@@ -29,7 +29,7 @@ export const SocketProvider: React.FC<{ children: React.ReactNode }> = ({ childr
         return import.meta.env.VITE_SOCKET_URL;
       }
       const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-      return isLocal ? 'http://localhost:5000' : window.location.origin;
+      return isLocal ? 'http://localhost:5000' : 'https://disasterguard-ai-5qz5.onrender.com';
     };
 
     const socketUrl = getSocketUrl();
