@@ -11,15 +11,18 @@ import {
   LogOut,
   Shield, 
   Wifi, 
-  WifiOff 
+  WifiOff,
+  X
 } from 'lucide-react';
 
 interface SidebarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
+  isOpen?: boolean;
+  onClose?: () => void;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab, isOpen, onClose }) => {
   const { user, logout } = useAuth();
   const { isConnected } = useSocket();
 
@@ -35,20 +38,33 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
   const visibleMenuItems = menuItems.filter(item => user && item.roles.includes(user.role));
 
   return (
-    <aside className="w-64 glass-panel border-r border-white/5 flex flex-col h-screen fixed left-0 top-0 z-20 text-slate-300">
+    <aside className={`w-64 glass-panel border-r border-white/5 flex flex-col h-screen fixed left-0 top-0 z-30 text-slate-300 transition-transform duration-300 ease-in-out ${
+      isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+    }`}>
       {/* Brand Header */}
-      <div className="p-6 border-b border-white/5 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-brandIndigo to-brandCyan flex items-center justify-center shadow-cyan-glow">
-          <Shield className="w-5 h-5 text-darkBg" />
+      <div className="p-6 border-b border-white/5 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-gradient-to-tr from-brandIndigo to-brandCyan flex items-center justify-center shadow-cyan-glow">
+            <Shield className="w-5 h-5 text-darkBg" />
+          </div>
+          <div>
+            <h1 className="text-sm font-bold tracking-wider font-orbitron bg-gradient-to-r from-brandCyan to-brandIndigo bg-clip-text text-transparent">
+              DISASTERGUARD
+            </h1>
+            <span className="text-[9px] uppercase tracking-widest text-slate-500 font-orbitron">
+              Security Core
+            </span>
+          </div>
         </div>
-        <div>
-          <h1 className="text-sm font-bold tracking-wider font-orbitron bg-gradient-to-r from-brandCyan to-brandIndigo bg-clip-text text-transparent">
-            DISASTERGUARD
-          </h1>
-          <span className="text-[9px] uppercase tracking-widest text-slate-500 font-orbitron">
-            Security Core
-          </span>
-        </div>
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="lg:hidden p-1 rounded-lg hover:bg-white/5 text-slate-400 hover:text-white transition-colors focus:outline-none"
+            aria-label="Close menu"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        )}
       </div>
 
       {/* User Session card */}

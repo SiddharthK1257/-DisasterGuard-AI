@@ -211,7 +211,7 @@ export const EvacuationPlanner: React.FC = () => {
       </div>
 
       {/* Main Grid View */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-[calc(100vh-220px)]">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 h-auto lg:h-[calc(100vh-220px)]">
         
         {/* Left Hand: Shelters and Instructions List */}
         <div className="lg:col-span-4 flex flex-col gap-4 overflow-y-auto max-h-full pr-1">
@@ -283,7 +283,7 @@ export const EvacuationPlanner: React.FC = () => {
         </div>
 
         {/* Right Hand: Evacuation Map Frame */}
-        <div className="lg:col-span-8 rounded-xl overflow-hidden border border-white/5 relative z-0 h-full">
+        <div className="lg:col-span-8 rounded-xl overflow-hidden border border-white/5 relative z-0 h-[400px] lg:h-full">
           <MapContainer 
             center={startPoint ? [startPoint.lat, startPoint.lng] : [37.7749, -122.4194]} 
             zoom={12} 

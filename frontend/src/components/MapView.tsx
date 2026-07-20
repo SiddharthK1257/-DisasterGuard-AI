@@ -175,7 +175,7 @@ export const MapView: React.FC = () => {
   };
 
   return (
-    <div className="relative h-[calc(100vh-80px)] flex flex-col lg:flex-row gap-4">
+    <div className="relative h-auto lg:h-[calc(100vh-85px)] flex flex-col lg:flex-row gap-4">
       {/* Map View Frame */}
       <div className="flex-1 rounded-xl overflow-hidden border border-white/5 relative z-0 min-h-[400px]">
         

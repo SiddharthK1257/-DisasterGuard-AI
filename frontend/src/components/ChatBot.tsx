@@ -102,7 +102,7 @@ export const ChatBot: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-100px)] overflow-hidden">
+    <div className="flex flex-col lg:flex-row gap-6 h-[calc(100vh-160px)] lg:h-[calc(100vh-100px)] overflow-hidden">
       
       {/* Left Hand: 8 Multi-Agent Control Selection Console */}
       <div className="lg:w-1/3 flex flex-col gap-4 max-h-[30%] lg:max-h-full overflow-y-auto pr-1">
@@ -169,7 +169,7 @@ export const ChatBot: React.FC = () => {
         )}
 
         {/* Messages Body */}
-        <div ref={scrollRef} className="flex-1 p-5 overflow-y-auto space-y-4 max-h-[calc(100vh-280px)]">
+        <div ref={scrollRef} className="flex-1 p-5 overflow-y-auto space-y-4">
           {messages.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center py-20 text-center space-y-4">
               <Bot className="w-12 h-12 text-brandCyan/40 animate-bounce" />
